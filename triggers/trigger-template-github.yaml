@@ -17,7 +17,7 @@ spec:
     spec:
       params:
       - name: url
-        value: $(tt.params.repo-url)
+        value: $(tt.params.url)
       - name: revision
         value: $(tt.params.revision)
       pipelineRef:
