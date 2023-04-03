@@ -9,4 +9,4 @@ spec:
     - kind: ClusterTriggerBinding
       ref: github-push
     template:
-      ref: trigger-template-product-api-pipeline
+      ref: trigger-template-github-producer
