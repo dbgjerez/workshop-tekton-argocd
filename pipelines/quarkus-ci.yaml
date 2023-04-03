@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: quarkus-ci
+spec:
+  workspaces:
+    - name: source
+  tasks:
+  - name: clone
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    params:
+      - name: url
+        value: $(params.url)
+      - name: revision
+        value: $(params.branch)
+      - name: deleteExisting
+        value: 'true'
+    workspaces:
+      - name: output
+        workspace: source
