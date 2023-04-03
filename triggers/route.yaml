@@ -1,13 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  annotations:
-    openshift.io/host.generated: "true"
+  name: github-webhook
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
     eventlistener: event-listener-github
-  name: github-listener
 spec:
   port:
     targetPort: http-listener
@@ -15,4 +13,3 @@ spec:
     kind: Service
     name: el-event-listener-github
     weight: 100
-  wildcardPolicy: None
