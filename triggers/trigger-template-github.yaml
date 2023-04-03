@@ -4,7 +4,7 @@ metadata:
   name: trigger-template-github-producer
 spec:
   params:
-  - name: url
+  - name: repo-url
   - name: revision
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
@@ -17,7 +17,7 @@ spec:
     spec:
       params:
       - name: url
-        value: $(tt.params.url)
+        value: $(tt.params.repo-url)
       - name: revision
         value: $(tt.params.revision)
       pipelineRef:
