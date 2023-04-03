@@ -8,7 +8,7 @@ spec:
   params:
     - name: url
       description: Git repository url
-    - name: branch
+    - name: revision
       description: Revision to use
   tasks:
   - name: clone
