@@ -4,10 +4,8 @@ metadata:
   name: trigger-template-github-producer
 spec:
   params:
-  - name: git-revision
-  - name: git-commit-message
-  - name: git-repo-url
-  - name: git-repo-name
+  - name: url
+  - name: revision
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
@@ -20,7 +18,7 @@ spec:
       params:
       - name: url
         value: $(tt.params.repo-url)
-      - name: branch
+      - name: revision
         value: $(tt.params.revision)
       pipelineRef:
         name: quarkus-ci
