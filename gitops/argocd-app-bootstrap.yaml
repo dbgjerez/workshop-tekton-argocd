@@ -8,7 +8,7 @@ spec:
     namespace: openshift-gitops
     server: "https://kubernetes.default.svc"
   source:
-    path: argocd/bootstrap/applications
+    path: gitops/applications
     repoURL: "https://github.com/dbgjerez/workshop-tekton"
     targetRevision: develop
   project: default
