@@ -13,6 +13,6 @@ spec:
     targetPort: http-listener
   to:
     kind: Service
-    name: event-listener-github
+    name: el-event-listener-github
     weight: 100
   wildcardPolicy: None
