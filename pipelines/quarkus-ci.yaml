@@ -5,6 +5,11 @@ metadata:
 spec:
   workspaces:
     - name: source
+  params:
+    - name: url
+      description: Git repository url
+    - name: branch
+      description: Revision to use
   tasks:
   - name: clone
     taskRef:
