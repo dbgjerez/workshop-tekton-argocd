@@ -4,3 +4,4 @@ resources:
   - operators.yaml
   - tekton-workspaces.yaml
   - tekton-pipelines.yaml
+  - tekton-triggers.yaml

@@ -1,0 +1,32 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: trigger-template-github-producer
+spec:
+  params:
+  - name: git-revision
+  - name: git-commit-message
+  - name: git-repo-url
+  - name: git-repo-name
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: pipeline-
+      labels:
+        tekton.dev/pipeline: quarkus-ci
+      namespace: tekton
+    spec:
+      params:
+      - name: url
+        value: $(tt.params.repo-url)
+      - name: branch
+        value: $(tt.params.revision)
+      pipelineRef:
+        name: quarkus-ci
+      resources: []
+      status: null
+      workspaces:
+      - name: source
+        persistentVolumeClaim:
+          claimName: source-pvc
