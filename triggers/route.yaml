@@ -6,13 +6,13 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
-    eventlistener: github-listener
+    eventlistener: event-listener-github
   name: github-listener
 spec:
   port:
     targetPort: http-listener
   to:
     kind: Service
-    name: el-event-listener-github
+    name: event-listener-github
     weight: 100
   wildcardPolicy: None
