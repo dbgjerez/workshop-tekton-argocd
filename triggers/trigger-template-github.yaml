@@ -11,19 +11,15 @@ spec:
     kind: PipelineRun
     metadata:
       generateName: pipeline-
-      labels:
-        tekton.dev/pipeline: quarkus-ci
       namespace: tekton
     spec:
+      pipelineRef:
+        name: quarkus-ci
       params:
       - name: repo-url
         value: "$(tt.params.repo-url)"
       - name: revision
         value: "$(tt.params.revision)"
-      pipelineRef:
-        name: quarkus-ci
-      resources: []
-      status: null
       workspaces:
       - name: source
         persistentVolumeClaim:
