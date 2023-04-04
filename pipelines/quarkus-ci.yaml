@@ -12,6 +12,9 @@ spec:
     - name: revision
       type: string
       description: Revision to use
+    - name: src
+      type: string
+      description: Source code folder
   tasks:
   - name: clone
     taskRef:
