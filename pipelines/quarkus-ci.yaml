@@ -79,7 +79,7 @@ spec:
     taskRef:
       name: extract-version-pom
     runAfter:
-      - build
+      - test
     params:
       - name: working-dir
         value: $(params.src)
