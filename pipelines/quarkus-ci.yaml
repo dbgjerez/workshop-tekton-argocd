@@ -53,7 +53,7 @@ spec:
       - name: maven-settings
         workspace: scratch
 
-  - name: build
+  - name: native-build
     taskRef:
       name: maven
       kind: ClusterTask
@@ -62,7 +62,7 @@ spec:
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
-      - name: src
+      - name: CONTEXT_DIR
         value: $(params.src)
       - name: GOALS
         value: ['clean', 'package', '-Pnative', '-Dquarkus.native.container-build=true']
@@ -71,3 +71,5 @@ spec:
         workspace: source
       - name: maven-settings
         workspace: scratch
+
+  - name: container-build
