@@ -18,7 +18,7 @@ spec:
       name: git-clone
       kind: ClusterTask
     params:
-      - name: repo-url
+      - name: url
         value: $(params.repo-url)
       - name: revision
         value: $(params.revision)
