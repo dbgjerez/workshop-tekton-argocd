@@ -49,6 +49,14 @@ As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application an
 
 ### Tasks
 
+A task is a series of steps that make one or some actions like clone, build, test or something necessary. A task receives input parameters and produces outputs that can be used by others tasks.
+
+By default, Tekton provides a series of tasks for common operations but we can build new tasks. In addition, a task is deployed in OpenShift as a Cloud Native object that can be reused. 
+
+For this example, we're going to use this tasks:
+
+* **git-clone:** 
+
 ### Pipelines
 
 ### Triggers

@@ -33,7 +33,6 @@ spec:
     workspaces:
       - name: output
         workspace: source
-
   - name: test
     taskRef:
       name: maven
@@ -71,5 +70,3 @@ spec:
         workspace: source
       - name: maven-settings
         workspace: scratch
-
-  - name: container-build
