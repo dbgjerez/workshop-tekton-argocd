@@ -51,5 +51,3 @@ spec:
     workspaces:
       - name: source
         workspace: source
-      - emptyDir: {}
-        name: scratch

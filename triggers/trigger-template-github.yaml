@@ -27,3 +27,5 @@ spec:
       - name: source
         persistentVolumeClaim:
           claimName: source-pvc
+      - emptyDir: {}
+        name: scratch
