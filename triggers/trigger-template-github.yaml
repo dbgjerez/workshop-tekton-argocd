@@ -4,6 +4,9 @@ metadata:
   name: trigger-template-github
 spec:
   params:
+  - name: image-name
+  - name: container-file
+  - name: skip-image-push
   - name: repo-url
   - name: revision
   - name: src
@@ -23,6 +26,12 @@ spec:
         value: "$(tt.params.revision)"
       - name: src
         value: "$(tt.params.src)"
+      - name: image-name
+        value: "$(tt.params.image-name)"
+      - name: container-file
+        value: "$(tt.params.container-file)"
+      - name: skip-image-push
+        value: "$(tt.params.skip-image-push)"
       workspaces:
       - name: source
         persistentVolumeClaim:
