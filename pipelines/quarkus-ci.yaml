@@ -32,6 +32,8 @@ spec:
     workspaces:
       - name: output
         workspace: source
+      - name: maven-settings
+        workspace: scratch
 
   - name: test
     taskRef:
