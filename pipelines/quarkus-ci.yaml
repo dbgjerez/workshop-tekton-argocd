@@ -34,7 +34,7 @@ spec:
       - name: output
         workspace: source
 
-  - name: build
+  - name: test
     taskRef:
       name: maven
       kind: ClusterTask
@@ -43,29 +43,29 @@ spec:
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
-      - name: src
-        value: $(params.src)
       - name: GOALS
-        value: ['clean', 'package', '-Pnative', '-Dquarkus.native.container-build=true']
+        value: ['clean', 'verify']
+      - name: CONTEXT_DIR
+        value: $(params.src)
     workspaces:
       - name: source
         workspace: source
       - name: maven-settings
         workspace: scratch
 
-  - name: test
+  - name: build
     taskRef:
       name: maven
       kind: ClusterTask
     runAfter:
-      - build
+      - test
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
-      - name: GOALS
-        value: ['clean', 'verify']
-      - name: CONTEXT_DIR
+      - name: src
         value: $(params.src)
+      - name: GOALS
+        value: ['clean', 'package', '-Pnative', '-Dquarkus.native.container-build=true']
     workspaces:
       - name: source
         workspace: source
