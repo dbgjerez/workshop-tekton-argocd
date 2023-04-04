@@ -33,12 +33,28 @@ spec:
     workspaces:
       - name: output
         workspace: source
-  - name: test
+  - name: build
     taskRef:
       name: maven
       kind: ClusterTask
     runAfter:
       - clone
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: GOALS
+        value: ['clean', 'package']
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+  - name: test
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - build
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
