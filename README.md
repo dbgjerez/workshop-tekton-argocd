@@ -43,8 +43,15 @@ oc apply -f gitops/argocd-app-bootstrap.yaml
 
 As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application and it's going to install the Tekton Operator. This operation was done in the previous step. 
 
-# Tasks
+# Cloud Native Lifecycle
 
+## Continous Integration with Tekton (CI)
 
+### Tasks
 
-# Pipelines
+### Pipelines
+
+### Triggers
+
+## Continous Deployment with ArgoCD (CD)
+

@@ -22,8 +22,27 @@ spec:
         value: $(params.repo-url)
       - name: revision
         value: $(params.revision)
+      - name: src
+        value: $(params.src)
       - name: deleteExisting
         value: 'true'
     workspaces:
       - name: output
+        workspace: source
+
+  - name: test
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - clone
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-11'
+      - name: GOALS
+        value: ['clean', 'verify']
+      - name: CONTEXT_DIR
+        value: $(params.src)
+    workspaces:
+      - name: source
         workspace: source

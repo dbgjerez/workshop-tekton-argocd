@@ -7,5 +7,6 @@ spec:
   triggers:
   - bindings:
     - ref: github-push
+    - ref: kafka-producer
     template:
       ref: trigger-template-github
