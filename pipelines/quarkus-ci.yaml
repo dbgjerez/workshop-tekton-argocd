@@ -41,7 +41,7 @@ spec:
       - clone
     params:
       - name: MAVEN_IMAGE
-        value: 'maven:3-openjdk-11'
+        value: 'maven:3-openjdk-17'
       - name: GOALS
         value: ['clean', 'verify']
       - name: CONTEXT_DIR
