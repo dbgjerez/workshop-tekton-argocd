@@ -11,4 +11,4 @@ spec:
   - name: container-file
     value: src/main/docker/Dockerfile.jvm
   - name: skip-image-push
-    value: true
+    value: "true"
