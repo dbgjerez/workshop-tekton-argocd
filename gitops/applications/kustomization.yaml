@@ -5,3 +5,4 @@ resources:
   - tekton-workspaces.yaml
   - tekton-pipelines.yaml
   - tekton-triggers.yaml
+  - tekton-tasks.yaml

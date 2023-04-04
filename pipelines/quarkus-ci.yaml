@@ -75,15 +75,28 @@ spec:
       - name: maven-settings
         workspace: scratch
 
+  - name: extract-app-version
+    taskRef:
+      name: extract-version-pom
+    runAfter:
+      - build
+    params:
+      - name: working-dir
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+
   - name: build-image
     taskRef:
       name: buildah
       kind: ClusterTask
     runAfter:
       - build
+      - extract-app-version
     params:
       - name: IMAGE
-        value: $(params.image-name)
+        value: $(params.image-name):$(tasks.extract-app-version.results.app-version)
       - name: DOCKERFILE
         value: $(params.container-file)
       - name: SKIP_PUSH

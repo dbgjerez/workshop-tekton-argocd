@@ -53,6 +53,8 @@ A task is a series of ```steps``` that make one or some actions like clone, buil
 
 By default, Tekton provides a series of tasks for common operations but we can build new tasks. In addition, a task is deployed in OpenShift as a Cloud Native object that can be reused. 
 
+A task can be launched with specific parameters, this instance is called ```TaskRun```. In our case, we only are going to launch its with Pipelines.
+
 For this example, we're going to use these tasks:
 
 * **git-clone:** to clone the repository
@@ -63,11 +65,13 @@ For this example, we're going to use these tasks:
 
 Define a series of ```tasks``` to build a specific application or functional unit. A pipeline can be launched manually using ```PipelineRun``` or using an event.
 
-In our case, we're using the previous tasks definition to define the following steps in our pipeline:
+In our case, we're using the previous task definitions to define the following steps in our pipeline:
 
 // todo include the image
 
 ### Triggers
+
+
 
 ## Continous Deployment with ArgoCD (CD)
 
