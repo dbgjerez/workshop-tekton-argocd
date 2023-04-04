@@ -16,4 +16,4 @@ spec:
      image: gcr.io/cloud-builders/mvn
      script: |
       cd $(workspaces.source.path)
-      mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tee $(results.app-version)
+      mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tee $(results.app-version.path)
