@@ -6,9 +6,11 @@ spec:
   workspaces:
     - name: source
   params:
-    - name: url
+    - name: repo-url
+      type: string
       description: Git repository url
     - name: revision
+      type: string
       description: Revision to use
   tasks:
   - name: clone
@@ -16,8 +18,8 @@ spec:
       name: git-clone
       kind: ClusterTask
     params:
-      - name: url
-        value: $(params.url)
+      - name: repo-url
+        value: $(params.repo-url)
       - name: revision
         value: $(params.revision)
       - name: deleteExisting
