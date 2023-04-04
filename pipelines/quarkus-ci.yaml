@@ -86,7 +86,7 @@ spec:
       - name: DOCKERFILE
         value: $(params.container-file)
       - name: SKIP_PUSH
-        vale: $(params.skip-image-push)
+        value: $(params.skip-image-push)
     workspaces:
       - name: source
         workspace: source
