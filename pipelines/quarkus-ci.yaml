@@ -81,7 +81,7 @@ spec:
     runAfter:
       - test
     params:
-      - name: working-dir
+      - name: context
         value: $(params.src)
     workspaces:
       - name: source
