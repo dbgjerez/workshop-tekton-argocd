@@ -88,6 +88,8 @@ spec:
         value: $(params.container-file)
       - name: SKIP_PUSH
         value: $(params.skip-image-push)
+      - name: CONTEXT
+        value: $(params.src)
     workspaces:
       - name: source
         workspace: source

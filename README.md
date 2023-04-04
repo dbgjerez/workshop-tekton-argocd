@@ -49,15 +49,23 @@ As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application an
 
 ### Tasks
 
-A task is a series of steps that make one or some actions like clone, build, test or something necessary. A task receives input parameters and produces outputs that can be used by others tasks.
+A task is a series of ```steps``` that make one or some actions like clone, build, test or something necessary. A task receives input parameters and produces outputs that can be used by others tasks.
 
 By default, Tekton provides a series of tasks for common operations but we can build new tasks. In addition, a task is deployed in OpenShift as a Cloud Native object that can be reused. 
 
-For this example, we're going to use this tasks:
+For this example, we're going to use these tasks:
 
-* **git-clone:** 
+* **git-clone:** to clone the repository
+* **maven:** to test and build the artifact
+* **buildah:** to build the image
 
 ### Pipelines
+
+Define a series of ```tasks``` to build a specific application or functional unit. A pipeline can be launched manually using ```PipelineRun``` or using an event.
+
+In our case, we're using the previous tasks definition to define the following steps in our pipeline:
+
+// todo include the image
 
 ### Triggers
 
