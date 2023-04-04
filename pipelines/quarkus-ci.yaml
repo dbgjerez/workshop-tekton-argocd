@@ -93,7 +93,7 @@ spec:
       kind: ClusterTask
     runAfter:
       - build
-      - extract-app-version
+      #- extract-app-version
     params:
       - name: IMAGE
         value: $(params.image-name)
