@@ -28,6 +28,8 @@ spec:
         value: $(params.revision)
       - name: src
         value: $(params.src)
+      - name: image-name
+        value: $(params.image-name)
       - name: deleteExisting
         value: 'true'
     workspaces:
@@ -65,9 +67,26 @@ spec:
       - name: CONTEXT_DIR
         value: $(params.src)
       - name: GOALS
-        value: ['clean', 'package']
+        value: ['clean', 'package', '-DskipTests']
     workspaces:
       - name: source
         workspace: source
       - name: maven-settings
         workspace: scratch
+
+  - name: build-image
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    runAfter:
+      - build
+    params:
+      - name: IMAGE
+        value: $(params.image-name)
+      - name: DOCKERFILE
+        value: $(params.container-file)
+      - name: SKIP_PUSH
+        vale: $(params.skip-image-push)
+    workspaces:
+      - name: source
+        workspace: source
