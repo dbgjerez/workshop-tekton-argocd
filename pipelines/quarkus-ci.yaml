@@ -46,7 +46,7 @@ spec:
       - name: src
         value: $(params.src)
       - name: GOALS
-        value: ['clean', 'package']
+        value: ['clean', 'package', '-Pnative', '-Dquarkus.native.container-build=true']
     workspaces:
       - name: source
         workspace: source
