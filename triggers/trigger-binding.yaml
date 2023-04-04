@@ -5,6 +5,6 @@ metadata:
 spec:
   params:
   - name: revision
-    value: "db062607f4f15ce6281957f07e57ded83003a2cc"
+    value: $(body.after)
   - name: repo-url
     value: $(body.repository.clone_url)
