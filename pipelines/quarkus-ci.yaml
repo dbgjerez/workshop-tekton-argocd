@@ -5,6 +5,7 @@ metadata:
 spec:
   workspaces:
     - name: source
+    - name: scratch
   params:
     - name: repo-url
       type: string
