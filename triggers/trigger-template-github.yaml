@@ -16,10 +16,10 @@ spec:
       namespace: tekton
     spec:
       params:
-      - name: url
-        value: $(tt.params.repo-url)
+      - name: repo-url
+        value: "$(tt.params.repo-url)"
       - name: revision
-        value: $(tt.params.revision)
+        value: "$(tt.params.revision)"
       pipelineRef:
         name: quarkus-ci
       resources: []
