@@ -9,8 +9,8 @@ spec:
       description: The current app version
   params:
     - name: context
-      description: working dir
-      default: .
+      description: "working dir"
+      default: "."
   workspaces:
     - name: source
   steps:
@@ -18,7 +18,7 @@ spec:
      image: gcr.io/cloud-builders/mvn
      script: |
       ls $(workspaces.source.path)
-      cd $(workspaces.source.path)/$(context)
+      cd $(workspaces.source.path)/$(params.context)
       APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
       BUILD_DATE=$(date +'%Y%m%d%H%M')
       VERSION=$APP_VERSION-$BUILD_DATE
