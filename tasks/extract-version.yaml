@@ -21,4 +21,5 @@ spec:
       APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
       BUILD_DATE=$(date +'%Y%m%d%H%M')
       VERSION=$APP_VERSION-$BUILD_DATE
+      VERSION=$BUILD_DATE
       echo $VERSION | tee $(results.app-version.path)
