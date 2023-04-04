@@ -33,6 +33,7 @@ spec:
     workspaces:
       - name: output
         workspace: source
+
   - name: build
     taskRef:
       name: maven
@@ -42,6 +43,8 @@ spec:
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
+      - name: src
+        value: $(params.src)
       - name: GOALS
         value: ['clean', 'package']
     workspaces:
@@ -49,6 +52,7 @@ spec:
         workspace: source
       - name: maven-settings
         workspace: scratch
+
   - name: test
     taskRef:
       name: maven
