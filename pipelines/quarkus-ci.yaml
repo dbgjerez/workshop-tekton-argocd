@@ -8,14 +8,17 @@ spec:
     - name: scratch
   params:
     - name: repo-url
-      type: string
       description: Git repository url
     - name: revision
-      type: string
       description: Revision to use
     - name: src
-      type: string
       description: Source code folder
+    - name: image-name
+      description: Name of the image result
+    - name: container-file
+      description: container runtime file
+    - name: skip-image-push
+      description: Skip image push
   tasks:
   - name: clone
     taskRef:
@@ -28,8 +31,6 @@ spec:
         value: $(params.revision)
       - name: src
         value: $(params.src)
-      - name: image-name
-        value: $(params.image-name)
       - name: deleteExisting
         value: 'true'
     workspaces:
