@@ -33,6 +33,7 @@ spec:
     workspaces:
       - name: output
         workspace: source
+
   - name: test
     taskRef:
       name: maven
@@ -52,7 +53,7 @@ spec:
       - name: maven-settings
         workspace: scratch
 
-  - name: native-build
+  - name: build
     taskRef:
       name: maven
       kind: ClusterTask
@@ -64,7 +65,7 @@ spec:
       - name: CONTEXT_DIR
         value: $(params.src)
       - name: GOALS
-        value: ['clean', 'package', '-Pnative', '-Dquarkus.native.container-build=true']
+        value: ['clean', 'package']
     workspaces:
       - name: source
         workspace: source
