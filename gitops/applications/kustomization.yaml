@@ -6,3 +6,4 @@ resources:
   - tekton-pipelines.yaml
   - tekton-triggers.yaml
   - tekton-tasks.yaml
+  - gogs.yaml
