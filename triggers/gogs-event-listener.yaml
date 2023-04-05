@@ -4,3 +4,5 @@ metadata:
   name: gogs-event-listener
 spec:
   serviceAccountName: pipeline
+  triggers:
+  - bindings:
