@@ -1,0 +1,6 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: gogs-event-listener
+spec:
+  serviceAccountName: pipeline
