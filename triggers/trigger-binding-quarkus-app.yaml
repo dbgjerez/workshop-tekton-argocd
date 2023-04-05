@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: trigger-binding-quarkus-app
+spec:
+  params:
+  - name: src
+    value: .
+  - name: image-name
+    value: quay.io/dborrego/workshop-tekton-argocd-app-quarkus
+  - name: container-file
+    value: src/main/docker/Dockerfile.jvm
+  - name: skip-image-push
+    value: "true"
