@@ -13,6 +13,9 @@ spec:
     - name: GOGS_NAMESPACE
       description: Gogs installation namespace
       default: "gogs"
+    - name: TEKTON_NAMESPACE
+      description: Tekton installation namespace
+      default: "tekton"
   steps:
    - name: init-admin
      image: quay.io/siamaksade/python-oc
@@ -24,8 +27,10 @@ spec:
 
       gogs_user = "$(params.GOGS_USER)"
       gogs_pwd = "$(params.GOGS_PASSWORD)"
-      webhookURL = "http://" + os.popen('oc get route gogs-webhook -o template --template="{{.spec.host}}"').read()
-      gogsURL = "http://" + os.popen('oc get svc gogs -o template --template="{{.spec.clusterIP}}"').read() + ":3000"
+      gogs_ns = "$(params.GOGS_NAMESPACE)"
+      tekton_ns = "$(params.TEKTON_NAMESPACE)"
+      webhookURL = "http://" + os.popen('oc get route gogs-webhook ' + tekton_ns + ' -o template --template="{{.spec.host}}"').read()
+      gogsURL = "http://" + os.popen('oc get svc gogs -n ' + gogs_ns + ' -o template --template="{{.spec.clusterIP}}"').read() + ":3000"
       # create admin user
       data_user = {
       'user_name': gogs_user,
