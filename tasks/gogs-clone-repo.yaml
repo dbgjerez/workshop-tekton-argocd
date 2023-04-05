@@ -10,15 +10,18 @@ spec:
     - name: GOGS_PASSWORD
       description: Gogs admin password
       default: "gogs"
-    - name: GOGS_NAMESPACE
-      description: Gogs installation namespace
-      default: "gogs"
     - name: REPO_URL
       description: Url of repo to clone, for example GitHub
       type: string
     - name: REPO_NAME
       description: New name of the repo
       type: string
+    - name: GOGS_NAMESPACE
+      description: Gogs installation namespace
+      default: "gogs"
+    - name: TEKTON_NAMESPACE
+      description: Tekton installation namespace
+      default: "tekton"
   steps:
    - name: clone-repo
      image: quay.io/siamaksade/python-oc
@@ -30,6 +33,8 @@ spec:
 
       gogs_user = "$(params.GOGS_USER)"
       gogs_pwd = "$(params.GOGS_PASSWORD)"
+      gogs_ns = "$(params.GOGS_NAMESPACE)"
+      tekton_ns = "$(params.TEKTON_NAMESPACE)"
       webhookURL = "http://" + os.popen('oc get route gogs-webhook -n ' + tekton_ns + ' -o template --template="{{.spec.host}}"').read()
       gogsURL = "http://" + os.popen('oc get svc gogs -n ' + gogs_ns + ' -o template --template="{{.spec.clusterIP}}"').read() + ":3000"
       repo_url = "$(params.REPO_URL)"
