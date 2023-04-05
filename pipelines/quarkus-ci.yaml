@@ -1,0 +1,108 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: quarkus-ci
+spec:
+  workspaces:
+    - name: source
+    - name: scratch
+  params:
+    - name: repo-url
+      description: Git repository url
+    - name: revision
+      description: Revision to use
+    - name: src
+      description: Source code folder
+    - name: image-name
+      description: Name of the image result
+    - name: container-file
+      description: container runtime file
+    - name: skip-image-push
+      description: Skip image push
+  tasks:
+  - name: clone
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    params:
+      - name: url
+        value: $(params.repo-url)
+      - name: revision
+        value: $(params.revision)
+      - name: src
+        value: $(params.src)
+      - name: deleteExisting
+        value: 'true'
+    workspaces:
+      - name: output
+        workspace: source
+
+  - name: test
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - clone
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: GOALS
+        value: ['clean', 'verify']
+      - name: CONTEXT_DIR
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+
+  - name: build
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - test
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: CONTEXT_DIR
+        value: $(params.src)
+      - name: GOALS
+        value: ['clean', 'package', '-DskipTests']
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+
+  - name: extract-app-version
+    taskRef:
+      name: extract-version-pom
+    runAfter:
+      - test
+    params:
+      - name: context
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+
+  - name: build-image
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    runAfter:
+      - build
+      - extract-app-version
+    params:
+      - name: IMAGE
+        value: $(params.image-name):$(tasks.extract-app-version.results.app-version)
+      - name: DOCKERFILE
+        value: $(params.container-file)
+      - name: SKIP_PUSH
+        value: $(params.skip-image-push)
+      - name: CONTEXT
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source

@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: kafka-producer
+spec:
+  params:
+  - name: src
+    value: simple-kafka-producer
+  - name: image-name
+    value: quay.io/dborrego/simple-kafka-producer
+  - name: container-file
+    value: src/main/docker/Dockerfile.jvm
+  - name: skip-image-push
+    value: "true"

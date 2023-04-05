@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: extract-version-pom
+spec:
+  results:
+    - name: app-version
+      type: string
+      description: The current app version
+  params:
+    - name: context
+      description: "working dir"
+      default: "."
+  workspaces:
+    - name: source
+  steps:
+   - name: get-version
+     image: gcr.io/cloud-builders/mvn
+     script: |
+      cd $(workspaces.source.path)/$(params.context)
+      APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+      BUILD_DATE=$(date +'%Y%m%d%H%M')
+      VERSION=$APP_VERSION-$BUILD_DATE
+      echo -n $VERSION | tee $(results.app-version.path)
