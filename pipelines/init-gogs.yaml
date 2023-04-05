@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: init-gogs
+spec:
+  tasks:
+    - name: init-admin
+      taskRef:
+        name: gogs-init-admin
+    - name: init-quarkus-app
+      taskRef:
+        name: gogs-init-admin
+      params: 
+        - name: REPO_URL
+          value: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus.git
+        - name: REPO_NAME
+          value: app-quarkus
+      runAfter:
+        - init-admin
+    - name: init-quarkus-app-config
+      taskRef:
+        name: gogs-init-admin
+      params: 
+        - name: REPO_URL
+          value: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus-config.git
+        - name: REPO_NAME
+          value: app-quarkus-config
+      runAfter:
+        - init-admin
+    
