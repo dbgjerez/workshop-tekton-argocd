@@ -9,7 +9,7 @@ spec:
         name: gogs-init-admin
     - name: init-quarkus-app
       taskRef:
-        name: gogs-init-admin
+        name: gogs-clone-repo
       params: 
         - name: REPO_URL
           value: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus.git
@@ -19,7 +19,7 @@ spec:
         - init-admin
     - name: init-quarkus-app-config
       taskRef:
-        name: gogs-init-admin
+        name: gogs-clone-repo
       params: 
         - name: REPO_URL
           value: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus-config.git
