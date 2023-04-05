@@ -1,0 +1,10 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+id: gogs-http
+metadata:
+  labels:
+    app: gogs
+  name: gogs
+spec:
+  to:
+    name: gogs
