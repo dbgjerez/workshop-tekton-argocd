@@ -43,6 +43,12 @@ oc apply -f gitops/argocd-app-bootstrap.yaml
 
 As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application and it's going to install the Tekton Operator. This operation was done in the previous step. 
 
+Tekton runs some commands over gogs namespace, so we need to grant some roles:
+
+```bash
+oc apply -f gitops/cluster-role-tekton-admin-gogs.yaml
+```
+
 # Cloud Native Lifecycle
 
 ## Continous Integration with Tekton (CI)
