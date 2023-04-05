@@ -5,5 +5,9 @@ metadata:
     app: gogs
   name: gogs
 spec:
+  port:
+    targetPort: 3000-tcp
   to:
+    kind: Service
     name: gogs
+    weight: 100
