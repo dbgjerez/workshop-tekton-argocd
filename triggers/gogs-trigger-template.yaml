@@ -1,0 +1,40 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: gogs-trigger-template
+spec:
+  params:
+  - name: image-name
+  - name: container-file
+  - name: skip-image-push
+  - name: repo-url
+  - name: revision
+  - name: src
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: pipeline-
+      namespace: tekton
+    spec:
+      pipelineRef:
+        name: quarkus-ci
+      params:
+      - name: repo-url
+        value: "$(tt.params.repo-url)"
+      - name: revision
+        value: "$(tt.params.revision)"
+      - name: src
+        value: "$(tt.params.src)"
+      - name: image-name
+        value: "$(tt.params.image-name)"
+      - name: container-file
+        value: "$(tt.params.container-file)"
+      - name: skip-image-push
+        value: "$(tt.params.skip-image-push)"
+      workspaces:
+      - name: source
+        persistentVolumeClaim:
+          claimName: source-pvc
+      - emptyDir: {}
+        name: scratch

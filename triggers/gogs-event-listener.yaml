@@ -6,3 +6,6 @@ spec:
   serviceAccountName: pipeline
   triggers:
   - bindings:
+    - ref: gogs-push
+    template:
+      ref: gogs-trigger-template
