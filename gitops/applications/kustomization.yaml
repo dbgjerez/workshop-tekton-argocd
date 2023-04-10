@@ -7,3 +7,4 @@ resources:
   - tekton-triggers.yaml
   - tekton-tasks.yaml
   - gogs.yaml
+  - apps.yaml
