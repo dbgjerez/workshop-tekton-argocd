@@ -9,7 +9,7 @@ spec:
     server: "https://kubernetes.default.svc"
   source:
     path: apps
-    repoURL: "http://gogs.gogs.svc.cluster.local/gogs/app-quarkus-config.git"
+    repoURL: "http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git"
     targetRevision: main
   project: default
   syncPolicy:
