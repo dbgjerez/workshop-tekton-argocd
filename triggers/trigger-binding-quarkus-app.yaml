@@ -7,8 +7,8 @@ spec:
   - name: src
     value: .
   - name: image-name
-    value: quay.io/dborrego/workshop-tekton-argocd-app-quarkus
+    value: nexus3.nexus.svc.cluster.local/dborrego/workshop-tekton-argocd-app-quarkus
   - name: container-file
     value: src/main/docker/Dockerfile.jvm
   - name: skip-image-push
-    value: "true"
+    value: "false"
