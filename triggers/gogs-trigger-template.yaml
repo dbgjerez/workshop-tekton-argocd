@@ -17,6 +17,7 @@ spec:
       generateName: pipeline-
       namespace: tekton
     spec:
+      serviceAccountName: pipeline
       pipelineRef:
         name: quarkus-ci
       params:
