@@ -44,5 +44,6 @@ spec:
           - key: service-ca.crt
             path: ca.crt
           namespace: openshift-controller-manager
-      - emptyDir: {}
-        name: scratch
+      - name: scratch
+        emptyDir: {}
+        
