@@ -1,0 +1,12 @@
+piVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-scc
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: allow-nexus-userid-200
+subjects:
+- kind: ServiceAccount
+  name: nexus3
+  namespace: nexus
