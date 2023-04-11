@@ -6,6 +6,7 @@ spec:
   workspaces:
     - name: source
     - name: scratch
+    - name: sslcertdir
   params:
     - name: repo-url
       description: Git repository url
