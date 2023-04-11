@@ -7,7 +7,6 @@ spec:
     - name: source
     - name: scratch
     - name: sslcertdir
-      optional: true
   params:
     - name: repo-url
       description: Git repository url
@@ -92,7 +91,7 @@ spec:
   - name: build-image
     taskRef:
       name: buildah
-      kind: ClusterTask
+      kind: Task
     runAfter:
       - build
       - extract-app-version
