@@ -7,7 +7,7 @@ spec:
   - name: src
     value: .
   - name: image-name
-    value: image-registry.openshift-image-registry.svc.cluster.local:5000/dborrego/workshop-tekton-argocd-app-quarkus
+    value: image-registry.openshift-image-registry.svc:5000/dborrego/workshop-tekton-argocd-app-quarkus
   - name: container-file
     value: src/main/docker/Dockerfile.jvm
   - name: skip-image-push
