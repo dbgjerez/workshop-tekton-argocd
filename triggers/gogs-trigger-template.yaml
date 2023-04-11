@@ -39,10 +39,3 @@ spec:
           claimName: source-pvc
       - name: scratch
         emptyDir: {}
-      - name: sslcertdir
-        configMap:
-          name: openshift-service-ca
-          defaultMode: 420
-          items:
-          - key: service-ca.crt
-            path: ca.crt
