@@ -6,7 +6,6 @@ spec:
   workspaces:
     - name: source
     - name: scratch
-    - name: sslcertdir
   params:
     - name: repo-url
       description: Git repository url
@@ -104,8 +103,8 @@ spec:
         value: $(params.skip-image-push)
       - name: CONTEXT
         value: $(params.src)
+      - name: TLSVERIFY
+        value: "false"
     workspaces:
       - name: source
         workspace: source
-      - name: sslcertdir
-        workspace: sslcertdir
