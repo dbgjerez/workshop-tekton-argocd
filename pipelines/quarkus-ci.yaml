@@ -106,3 +106,5 @@ spec:
     workspaces:
       - name: source
         workspace: source
+      - name: sslcertdir
+        workspace: sslcertdir

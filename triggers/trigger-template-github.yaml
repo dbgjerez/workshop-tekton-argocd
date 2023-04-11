@@ -36,5 +36,13 @@ spec:
       - name: source
         persistentVolumeClaim:
           claimName: source-pvc
+      - name: sslcertdir
+        configMap:
+          name: openshift-service-ca
+          defaultMode: 420
+          items:
+          - key: service-ca.crt
+            path: ca.crt
+          namespace: openshift-controller-manager
       - emptyDir: {}
         name: scratch
