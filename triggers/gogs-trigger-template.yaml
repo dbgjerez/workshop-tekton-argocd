@@ -46,4 +46,3 @@ spec:
           namespace: openshift-controller-manager
       - name: scratch
         emptyDir: {}
-        
