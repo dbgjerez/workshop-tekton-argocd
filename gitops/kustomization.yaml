@@ -4,3 +4,4 @@ resources:
   - namespaces
   - applications
   - cluster-role-tekton-admin-gogs.yaml
+  - git-credentials.yaml
