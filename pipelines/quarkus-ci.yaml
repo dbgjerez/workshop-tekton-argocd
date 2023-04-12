@@ -37,6 +37,9 @@ spec:
     workspaces:
       - name: output
         workspace: source
+      - name: basic-auth
+        workspace: git-credentials
+
 
   # - name: test
   #   taskRef:
