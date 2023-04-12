@@ -42,7 +42,6 @@ spec:
       - name: basic-auth
         workspace: git-credentials
 
-
   - name: test
     taskRef:
       name: maven
@@ -126,6 +125,7 @@ spec:
       kind: ClusterTask
     runAfter:
       - update-mvn-version
+      - test
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
