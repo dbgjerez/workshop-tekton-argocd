@@ -122,7 +122,7 @@ spec:
     workspaces:
       - name: source
         workspace: source
-      - name: git-credentials
+      - name: basic-auth
         workspace: git-credentials
           
   - name: build-image
