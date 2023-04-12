@@ -104,6 +104,7 @@ spec:
       - name: GIT_SCRIPT
         value: |
           ls -la
+          git remote -v
           git branch main
           git checkout main
           git add pom.xml
