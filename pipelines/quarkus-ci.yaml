@@ -43,24 +43,24 @@ spec:
         workspace: git-credentials
 
 
-  # - name: test
-  #   taskRef:
-  #     name: maven
-  #     kind: ClusterTask
-  #   runAfter:
-  #     - clone
-  #   params:
-  #     - name: MAVEN_IMAGE
-  #       value: 'maven:3-openjdk-17'
-  #     - name: GOALS
-  #       value: ['clean', 'verify']
-  #     - name: CONTEXT_DIR
-  #       value: $(params.src)
-  #   workspaces:
-  #     - name: source
-  #       workspace: source
-  #     - name: maven-settings
-  #       workspace: scratch
+  - name: test
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - clone
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: GOALS
+        value: ['clean', 'verify']
+      - name: CONTEXT_DIR
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
 
   - name: extract-app-version
     taskRef:
@@ -101,6 +101,7 @@ spec:
       kind: ClusterTask
     runAfter:
       - update-mvn-version
+      - test
     params:
       - name: GIT_USER_NAME
         value: gogs
@@ -108,18 +109,11 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
-          ls -la
-          git remote set-url origin $(params.repo-url)
-          sleep 10000
-          git remote -v
+          git fetch --unshallow
           git checkout main
-          git pull
-          git status
           git add pom.xml
-          git status
           git commit -m 'new version'
-          git status
-          git push -u origin HEAD
+          git push
     workspaces:
       - name: source
         workspace: source
