@@ -156,7 +156,11 @@ spec:
       - name: GIT_SCRIPT
         value: |
           git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
+          cd app-quarkus-config
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" dev.values.yaml
+          git add dev.values.yaml
+          git commit -m 'bot update dev env'
+          git push
     workspaces:
       - name: source
         workspace: source
