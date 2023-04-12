@@ -158,7 +158,5 @@ spec:
           git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" dev.values.yaml
     workspaces:
-      - name: source
-        workspace: source
       - name: basic-auth
         workspace: git-credentials
