@@ -21,24 +21,44 @@ spec:
     - name: skip-image-push
       description: Skip image push
   tasks:
+
   - name: clone
     taskRef:
-      name: git-clone
+      name: git-cli
       kind: ClusterTask
     params:
-      - name: url
-        value: $(params.repo-url)
-      - name: revision
-        value: $(params.revision)
-      - name: src
-        value: $(params.src)
-      - name: deleteExisting
-        value: 'true'
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          rm -rf app-quarkus
+          git clone $(params.repo-url)
     workspaces:
-      - name: output
+      - name: source
         workspace: source
       - name: basic-auth
         workspace: git-credentials
+
+  # - name: clone
+  #   taskRef:
+  #     name: git-clone
+  #     kind: ClusterTask
+  #   params:
+  #     - name: url
+  #       value: $(params.repo-url)
+  #     - name: revision
+  #       value: $(params.revision)
+  #     - name: src
+  #       value: $(params.src)
+  #     - name: deleteExisting
+  #       value: 'true'
+  #   workspaces:
+  #     - name: output
+  #       workspace: source
+  #     - name: basic-auth
+  #       workspace: git-credentials
 
 
   # - name: test
