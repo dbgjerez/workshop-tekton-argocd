@@ -118,6 +118,7 @@ spec:
     params:
       - name: GIT_SCRIPT
         value: |
+          git checkout main
           git add pom.xml
           git commit -m 'new version'
           git push
