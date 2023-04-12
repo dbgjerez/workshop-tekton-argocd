@@ -111,7 +111,7 @@ spec:
           git add pom.xml
           git status
           git commit -m 'new version'
-          git status
+          git statusgit config --global push.autoSetupRemote true
           git push
     workspaces:
       - name: source
