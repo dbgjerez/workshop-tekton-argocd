@@ -105,11 +105,8 @@ spec:
         value: |
           ls -la
           git remote set-url origin $(params.repo-url)
+          sleep 10000
           git remote -v
-          git branch main
-          git checkout main
-          git commit
-          git branch --set-upstream-to origin/main
           git checkout main
           git pull
           git status
