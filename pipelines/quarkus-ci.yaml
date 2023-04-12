@@ -90,31 +90,12 @@ spec:
       - name: maven-settings
         workspace: scratch
 
-  - name: build
-    taskRef:
-      name: maven
-      kind: ClusterTask
-    runAfter:
-      - update-mvn-version
-    params:
-      - name: MAVEN_IMAGE
-        value: 'maven:3-openjdk-17'
-      - name: CONTEXT_DIR
-        value: $(params.src)
-      - name: GOALS
-        value: ['clean', 'package', '-DskipTests']
-    workspaces:
-      - name: source
-        workspace: source
-      - name: maven-settings
-        workspace: scratch
-
   - name: update-git-code
     taskRef:
       name: git-cli
       kind: ClusterTask
     runAfter:
-      - extract-app-version
+      - update-mvn-version
     params:
       - name: GIT_SCRIPT
         value: |
@@ -129,7 +110,26 @@ spec:
         workspace: source
       - name: basic-auth
         workspace: git-credentials
-          
+
+  - name: build
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - update-git-code
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: CONTEXT_DIR
+        value: $(params.src)
+      - name: GOALS
+        value: ['clean', 'package', '-DskipTests']
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+         
   - name: build-image
     taskRef:
       name: buildah
