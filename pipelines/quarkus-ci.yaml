@@ -105,7 +105,8 @@ spec:
         value: |
           ls -la
           git remote -v
-          git branch --set-upstream-to=origin/main main
+          git branch -a
+          git branch --set-upstream-to origin/main
           git checkout main
           git pull
           git status
