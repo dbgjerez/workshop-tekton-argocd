@@ -108,7 +108,7 @@ spec:
           git checkout main
           git add pom.xml
           git commit -m 'new version'
-          git push
+          git push --set-upstream origin main
     workspaces:
       - name: source
         workspace: source
