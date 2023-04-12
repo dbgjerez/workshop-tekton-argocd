@@ -39,3 +39,6 @@ spec:
           claimName: source-pvc
       - name: scratch
         emptyDir: {}
+      - name: git-credentials
+        secret:
+          secretName: git-credentials

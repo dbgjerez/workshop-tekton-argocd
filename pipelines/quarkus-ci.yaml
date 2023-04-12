@@ -6,6 +6,7 @@ spec:
   workspaces:
     - name: source
     - name: scratch
+    - name: git-credentials
   params:
     - name: repo-url
       description: Git repository url
@@ -108,6 +109,22 @@ spec:
       - name: maven-settings
         workspace: scratch
 
+  - name: update-git-code
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - update-mvn-version
+    params:
+      - name: GIT_SCRIPT
+        value: |
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: git-credentials
+        workspace: git-credentials
+          
   - name: build-image
     taskRef:
       name: buildah
@@ -128,3 +145,20 @@ spec:
     workspaces:
       - name: source
         workspace: source
+
+  - name: update-deploy-dev
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" dev.values.yaml
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials
