@@ -97,6 +97,10 @@ spec:
     runAfter:
       - update-mvn-version
     params:
+      - name: GIT_USER_NAME
+        value: tekton-bot
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
           ls -la
