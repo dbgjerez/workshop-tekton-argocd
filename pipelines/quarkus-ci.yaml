@@ -98,7 +98,7 @@ spec:
       - update-mvn-version
     params:
       - name: GIT_USER_NAME
-        value: tekton-bot
+        value: gogs
       - name: GIT_USER_EMAIL
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
