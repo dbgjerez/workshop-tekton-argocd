@@ -95,37 +95,37 @@ spec:
       - name: maven-settings
         workspace: scratch
 
-  - name: update-git-code
-    taskRef:
-      name: git-cli
-      kind: ClusterTask
-    runAfter:
-      - update-mvn-version
-      - test
-    params:
-      - name: GIT_USER_NAME
-        value: gogs
-      - name: GIT_USER_EMAIL
-        value: dborrego@redhat.com
-      - name: GIT_SCRIPT
-        value: |
-          git fetch --unshallow
-          git checkout main
-          git add pom.xml
-          git commit -m 'new version'
-          git push
-    workspaces:
-      - name: source
-        workspace: source
-      - name: basic-auth
-        workspace: git-credentials
+  # - name: update-git-code
+  #   taskRef:
+  #     name: git-cli
+  #     kind: ClusterTask
+  #   runAfter:
+  #     - update-mvn-version
+  #     - test
+  #   params:
+  #     - name: GIT_USER_NAME
+  #       value: gogs
+  #     - name: GIT_USER_EMAIL
+  #       value: dborrego@redhat.com
+  #     - name: GIT_SCRIPT
+  #       value: |
+  #         git fetch --unshallow
+  #         git checkout main
+  #         git add pom.xml
+  #         git commit -m 'new version'
+  #         git push
+  #   workspaces:
+  #     - name: source
+  #       workspace: source
+  #     - name: basic-auth
+  #       workspace: git-credentials
 
   - name: build
     taskRef:
       name: maven
       kind: ClusterTask
     runAfter:
-      - update-git-code
+      - update-mvn-version
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
@@ -167,6 +167,10 @@ spec:
     runAfter:
       - build-image
     params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
           git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
