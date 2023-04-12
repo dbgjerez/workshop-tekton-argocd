@@ -80,7 +80,7 @@ spec:
       - name: CONTEXT_DIR
         value: $(params.src)
       - name: GOALS
-        value: ['versions:set', '-DnewVersion='$(tasks.extract-app-version.results.app-version)]
+        value: ['versions:set', '-DnewVersion', $(tasks.extract-app-version.results.app-version)]
     workspaces:
       - name: source
         workspace: source
