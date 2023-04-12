@@ -34,7 +34,9 @@ spec:
       - name: GIT_SCRIPT
         value: |
           rm -rf *
-          git clone -b $(params.revision) $(params.repo-url)
+          git clone $(params.repo-url)
+          cd app-quarkus
+          git reset --hard $(params.revision)
     workspaces:
       - name: source
         workspace: source
