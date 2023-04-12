@@ -56,12 +56,43 @@ spec:
       - name: maven-settings
         workspace: scratch
 
+  - name: extract-app-version
+    taskRef:
+      name: extract-version-pom
+    runAfter:
+      - test
+    params:
+      - name: context
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+
+  - name: update-mvn-version
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - extract-app-version
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: CONTEXT_DIR
+        value: $(params.src)
+      - name: GOALS
+        value: ['versions:set', '-DnewVersion='$(tasks.extract-app-version.results.app-version)]
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+
   - name: build
     taskRef:
       name: maven
       kind: ClusterTask
     runAfter:
-      - test
+      - update-mvn-version
     params:
       - name: MAVEN_IMAGE
         value: 'maven:3-openjdk-17'
@@ -75,25 +106,12 @@ spec:
       - name: maven-settings
         workspace: scratch
 
-  - name: extract-app-version
-    taskRef:
-      name: extract-version-pom
-    runAfter:
-      - test
-    params:
-      - name: context
-        value: $(params.src)
-    workspaces:
-      - name: source
-        workspace: source
-
   - name: build-image
     taskRef:
       name: buildah
       kind: ClusterTask
     runAfter:
       - build
-      - extract-app-version
     params:
       - name: IMAGE
         value: $(params.image-name):$(tasks.extract-app-version.results.app-version)
