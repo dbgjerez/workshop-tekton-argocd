@@ -111,7 +111,8 @@ spec:
           git add pom.xml
           git status
           git commit -m 'new version'
-          git push --set-upstream origin main
+          git status
+          git push
     workspaces:
       - name: source
         workspace: source
