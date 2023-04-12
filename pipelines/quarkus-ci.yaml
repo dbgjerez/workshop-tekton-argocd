@@ -100,7 +100,7 @@ spec:
       - name: GIT_SCRIPT
         value: |
           ls -la
-          git branch
+          git branch main
           git checkout main
           git add pom.xml
           git commit -m 'new version'
