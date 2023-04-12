@@ -107,7 +107,9 @@ spec:
           git remote -v
           git branch main
           git checkout main
+          git status
           git add pom.xml
+          git status
           git commit -m 'new version'
           git push --set-upstream origin main
     workspaces:
