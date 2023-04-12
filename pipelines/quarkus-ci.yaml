@@ -104,8 +104,11 @@ spec:
       - name: GIT_SCRIPT
         value: |
           ls -la
+          git remote set-url origin $(repo-url)
           git remote -v
-          git branch -a
+          git branch main
+          git checkout main
+          git commit
           git branch --set-upstream-to origin/main
           git checkout main
           git pull
