@@ -107,13 +107,13 @@ spec:
           git remote -v
           git branch main
           git checkout main
+          git pull
           git status
           git add pom.xml
           git status
           git commit -m 'new version'
           git status
-          git config --global push.autoSetupRemote true
-          git push
+          git push -u origin HEAD
     workspaces:
       - name: source
         workspace: source
