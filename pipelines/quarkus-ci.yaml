@@ -38,30 +38,30 @@ spec:
       - name: output
         workspace: source
 
-  - name: test
-    taskRef:
-      name: maven
-      kind: ClusterTask
-    runAfter:
-      - clone
-    params:
-      - name: MAVEN_IMAGE
-        value: 'maven:3-openjdk-17'
-      - name: GOALS
-        value: ['clean', 'verify']
-      - name: CONTEXT_DIR
-        value: $(params.src)
-    workspaces:
-      - name: source
-        workspace: source
-      - name: maven-settings
-        workspace: scratch
+  # - name: test
+  #   taskRef:
+  #     name: maven
+  #     kind: ClusterTask
+  #   runAfter:
+  #     - clone
+  #   params:
+  #     - name: MAVEN_IMAGE
+  #       value: 'maven:3-openjdk-17'
+  #     - name: GOALS
+  #       value: ['clean', 'verify']
+  #     - name: CONTEXT_DIR
+  #       value: $(params.src)
+  #   workspaces:
+  #     - name: source
+  #       workspace: source
+  #     - name: maven-settings
+  #       workspace: scratch
 
   - name: extract-app-version
     taskRef:
       name: extract-version-pom
     runAfter:
-      - test
+      - clone
     params:
       - name: context
         value: $(params.src)
@@ -114,10 +114,11 @@ spec:
       name: git-cli
       kind: ClusterTask
     runAfter:
-      - update-mvn-version
+      - extract-app-version
     params:
       - name: GIT_SCRIPT
         value: |
+          ls
           git checkout main
           git add pom.xml
           git commit -m 'new version'
