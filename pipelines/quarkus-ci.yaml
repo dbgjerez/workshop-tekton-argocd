@@ -118,6 +118,8 @@ spec:
     params:
       - name: GIT_SCRIPT
         value: |
+          git add pom.xml
+          git commit -m 'new version'
           git push
     workspaces:
       - name: source
