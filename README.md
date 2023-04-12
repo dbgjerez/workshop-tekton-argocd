@@ -39,6 +39,9 @@ Now, we apply the bootstrap application:
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 
+TODO oc adm policy add-cluster-role-to-user system:image-puller -z openshift-gitops-argocd-application-controller -n openshift-gitops
+
+
 ## Tekton
 
 As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application and it's going to install the Tekton Operator. This operation was done in the previous step. 
