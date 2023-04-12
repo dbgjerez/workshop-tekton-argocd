@@ -104,7 +104,7 @@ spec:
       - name: GIT_SCRIPT
         value: |
           ls -la
-          git remote set-url origin $(repo-url)
+          git remote set-url origin $(params.repo-url)
           git remote -v
           git branch main
           git checkout main
