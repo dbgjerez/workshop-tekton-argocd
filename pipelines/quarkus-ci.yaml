@@ -184,3 +184,53 @@ spec:
         workspace: source
       - name: basic-auth
         workspace: git-credentials
+
+  - name: update-deploy-int
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
+          cd app-quarkus-config
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" int.values.yaml
+          git add int.values.yaml
+          git commit -m 'bot update int env'
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials
+
+  - name: update-deploy-prod
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
+          cd app-quarkus-config
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" prod.values.yaml
+          git add prod.values.yaml
+          git commit -m 'bot update prod env'
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials
