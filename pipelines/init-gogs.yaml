@@ -56,5 +56,3 @@ spec:
           workspace: source
         - name: basic-auth
           workspace: git-credentials
-            secret:
-              secretName: git-credentials
