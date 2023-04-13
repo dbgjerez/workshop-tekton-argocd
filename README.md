@@ -79,7 +79,7 @@ Define a series of ```tasks``` to build a specific application or functional uni
 
 In our case, we're using the previous task definitions to define the following steps in our pipeline:
 
-// todo include the image
+![app pipeline](images/quarkus-pipeline.png)
 
 ### Triggers
 
