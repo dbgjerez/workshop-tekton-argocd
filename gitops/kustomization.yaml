@@ -5,3 +5,4 @@ resources:
   - applications
   - cluster-role-tekton-admin-gogs.yaml
   - git-credentials.yaml
+  - argocd-puller.yaml
