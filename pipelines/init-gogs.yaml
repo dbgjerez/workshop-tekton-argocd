@@ -25,6 +25,8 @@ spec:
           value: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus-config.git
         - name: REPO_NAME
           value: app-quarkus-config
+        - name: CREATE_WEBHOOK
+          value: false
       runAfter:
         - init-admin
     
