@@ -51,8 +51,6 @@ spec:
             git commit -m 'image registry'
             git push
       workspaces:
-        - name: source
-          workspace: source
         - name: basic-auth
           workspace: git-credentials
             secret:
