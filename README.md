@@ -1,5 +1,6 @@
+Tekton is a Cloud Native solution to build Continous Integration pipelines. 
 
-Tekton is...
+The power of Tekton can be combined with ArgoCD as a Continous Deployment tool, getting a CI/CD complete cycle. 
 
 # Tools
 * OpenShift Pipelines 1.9 (Tekton Pipelines: v0.41.1)
@@ -39,14 +40,11 @@ Now, we apply the bootstrap application:
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 
-TODO oc adm policy add-cluster-role-to-user system:image-puller -z openshift-gitops-argocd-application-controller -n openshift-gitops
-
-
 ## Tekton
 
 As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application and it's going to install the Tekton Operator. This operation was done in the previous step. 
 
-Tekton runs some commands over gogs namespace, so we need to grant some roles:
+Tekton runs some commands on gogs namespace, so we need to grant some roles:
 
 ```bash
 oc apply -f gitops/cluster-role-tekton-admin-gogs.yaml
