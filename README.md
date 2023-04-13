@@ -115,4 +115,14 @@ Although our repositories are in GitHub we fork them in an internal Git server t
 
 This internal server is Gogs. You can enter in ArgoCD and visualize the state of Gogs, if it is correctly synchronized we can enter with user and password ```gogs```.
 
+```bash
+oc get route -n gogs gogs -o template --template='{{"http://"}}{{.spec.host}}'
+```
+
+We can see that we don't have repositories, so we'll initialize it with a specific pipeline. To run it: 
+
+```bash
+oc apply -f gitops/init-pipeline-run.yaml
+```
+
 ![app pipeline](images/quarkus-pipeline.png)
