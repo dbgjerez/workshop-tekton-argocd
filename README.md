@@ -125,7 +125,7 @@ We can see that we don't have repositories, so we'll initialize it with a specif
 oc apply -f gitops/init-pipeline-run.yaml
 ```
 
-We can enter in OpenShift console and see the pipeline execution at the ```Pipeline``` tab:
+We can enter in OpenShift console and see the pipeline execution in the `Pipeline```` tab:
 
 ![app pipeline](images/init-pipeline.png)
 
@@ -133,6 +133,14 @@ After some seconds, we can see the projects in gogs.
 
 ![Gogs repositories](images/gogs-apps.png)
 
-## Change the application
+## Change the application code
+
+At this point, we can clone and modify some code in the application. When we push the changes to the repository our application pipeline will start. We can see it in the same place as the gogs configuration:
 
 ![app pipeline](images/quarkus-pipeline.png)
+
+## Check it in ArgoCD
+
+In ArgoCD we have three applications, one per environment (dev, pre and prod), so we can inspect each and test directly the application.
+
+![app pipeline](images/quarkus-apps.png)
