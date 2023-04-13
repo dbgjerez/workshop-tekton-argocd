@@ -61,7 +61,7 @@ spec:
         print("Created git repo " + repo_name)
 
       # create the webhook
-      if weebhook:
+      if webhook:
         data_webhook = '{"type": "gogs", "config": { "url": "' + webhookURL + '", "content_type": "json"}, "events": ["push"], "active": true}'
         headers = {'Content-Type': 'application/json'}
         resp = requests.post(url = gogsURL + "/api/v1/repos/" + gogs_user + "/" + repo_name + "/hooks", 
