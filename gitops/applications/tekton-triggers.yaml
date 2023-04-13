@@ -9,7 +9,7 @@ spec:
     server: "https://kubernetes.default.svc"
   source:
     path: triggers
-    repoURL: "https://github.com/dbgjerez/workshop-tekton"
+    repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
     targetRevision: develop
   project: default
   syncPolicy:

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: trigger-template-github
+  name: gogs-trigger-template
 spec:
   params:
   - name: image-name
@@ -17,6 +17,7 @@ spec:
       generateName: pipeline-
       namespace: tekton
     spec:
+      serviceAccountName: pipeline
       pipelineRef:
         name: quarkus-ci
       params:
@@ -36,5 +37,8 @@ spec:
       - name: source
         persistentVolumeClaim:
           claimName: source-pvc
-      - emptyDir: {}
-        name: scratch
+      - name: scratch
+        emptyDir: {}
+      - name: git-credentials
+        secret:
+          secretName: git-credentials

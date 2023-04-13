@@ -6,6 +6,7 @@ spec:
   workspaces:
     - name: source
     - name: scratch
+    - name: git-credentials
   params:
     - name: repo-url
       description: Git repository url
@@ -33,9 +34,13 @@ spec:
         value: $(params.src)
       - name: deleteExisting
         value: 'true'
+      - name: sslVerify
+        value: 'false'
     workspaces:
       - name: output
         workspace: source
+      - name: basic-auth
+        workspace: git-credentials
 
   - name: test
     taskRef:
@@ -56,11 +61,45 @@ spec:
       - name: maven-settings
         workspace: scratch
 
+  - name: extract-app-version
+    taskRef:
+      name: extract-version-pom
+    runAfter:
+      - clone
+    params:
+      - name: context
+        value: $(params.src)
+    workspaces:
+      - name: source
+        workspace: source
+
+  - name: update-mvn-version
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    runAfter:
+      - extract-app-version
+    params:
+      - name: MAVEN_IMAGE
+        value: 'maven:3-openjdk-17'
+      - name: CONTEXT_DIR
+        value: $(params.src)
+      - name: GOALS
+        value: 
+          - versions:set
+          - -DnewVersion=$(tasks.extract-app-version.results.app-version)
+    workspaces:
+      - name: source
+        workspace: source
+      - name: maven-settings
+        workspace: scratch
+
   - name: build
     taskRef:
       name: maven
       kind: ClusterTask
     runAfter:
+      - update-mvn-version
       - test
     params:
       - name: MAVEN_IMAGE
@@ -74,26 +113,13 @@ spec:
         workspace: source
       - name: maven-settings
         workspace: scratch
-
-  - name: extract-app-version
-    taskRef:
-      name: extract-version-pom
-    runAfter:
-      - test
-    params:
-      - name: context
-        value: $(params.src)
-    workspaces:
-      - name: source
-        workspace: source
-
+         
   - name: build-image
     taskRef:
       name: buildah
       kind: ClusterTask
     runAfter:
       - build
-      - extract-app-version
     params:
       - name: IMAGE
         value: $(params.image-name):$(tasks.extract-app-version.results.app-version)
@@ -103,6 +129,83 @@ spec:
         value: $(params.skip-image-push)
       - name: CONTEXT
         value: $(params.src)
+      - name: TLSVERIFY
+        value: "false"
     workspaces:
       - name: source
         workspace: source
+
+  - name: update-deploy-dev
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-dev
+          cd app-quarkus-config-dev
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" dev.values.yaml
+          git add dev.values.yaml
+          git commit -m 'bot update dev env'
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials
+
+  - name: update-deploy-int
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-int
+          cd app-quarkus-config-int
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" int.values.yaml
+          git add int.values.yaml
+          git commit -m 'bot update int env'
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials
+
+  - name: update-deploy-prod
+    taskRef:
+      name: git-cli
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: GIT_USER_NAME
+        value: gogs
+      - name: GIT_USER_EMAIL
+        value: dborrego@redhat.com
+      - name: GIT_SCRIPT
+        value: |
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-prod
+          cd app-quarkus-config-prod
+          sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" prod.values.yaml
+          git add prod.values.yaml
+          git commit -m 'bot update prod env'
+          git push
+    workspaces:
+      - name: source
+        workspace: source
+      - name: basic-auth
+        workspace: git-credentials

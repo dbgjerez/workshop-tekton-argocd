@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tekton-tasks
+  name: gogs
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: tekton
+    namespace: gogs
     server: "https://kubernetes.default.svc"
   source:
-    path: tasks
+    path: dependencies/gogs
     repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
     targetRevision: develop
   project: default
