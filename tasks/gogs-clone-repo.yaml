@@ -24,6 +24,7 @@ spec:
       default: "tekton"
     - name: CREATE_WEBHOOK
       description: create a webhook
+      type: string
       default: true
   steps:
    - name: clone-repo
