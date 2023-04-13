@@ -40,7 +40,7 @@ Now, we apply the bootstrap application:
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 
-The bootstrap application initializes the cluster with the necessary dependencies and configuration. This repository is structure functionally: 
+The bootstrap application initializes the cluster with the necessary dependencies and configuration. This repository is structure functionally:
 
 * **apps**: this folder contains the configuration of the applications that are running on the cluster.
 * **dependencies**: our system needs some dependencies which are installed by ArgoCD.
@@ -83,7 +83,36 @@ In our case, we're using the previous task definitions to define the following s
 
 ### Triggers
 
+Using triggers, we can manage easily the pipeline execution automatically. For example, in this workshop we configure a webhook in our git repository that initialize the pipeline, to do that, we use the following objects:
 
+* **Route**: the route defines the endpoint where the webhook has to call. 
+* **EventListener**: this object defines how it must actuate when a webhook is received. It's essential to complete ```bindings``` and ```template```sections. 
+* **TriggerBinding**: indicate the values that substitute the different pipeline variables, for example, you can use values received in the webhook.
+* **TriggerTemplate**: the definition of the ```PipilineRun``` which is the object that represents a pipeline execution.
 
 ## Continous Deployment with ArgoCD (CD)
 
+Once, our application image is in the containers' registry, we can deploy it. 
+
+ArgoCD ensures that the definition of our deployment is exactly what we have in a Git repository. 
+
+In this example, our pipeline finishes changing the image version in a git repository that ArgoCD is watching. When ArgoCD detects the change, it updates the OpenShift deployment. 
+
+# Run the demo
+
+If you've completed the installation section, you can start this step. 
+
+At this moment, we've deployed all our dependencies, security and ArgoCD applications but we need our code. I've implemented two repositories, one for a Quarkus application and another with a Helm chart that contains the deployment definition. 
+
+* [Quarkus application](https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus)
+* [Helm chart](https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus-config)
+
+Now, it's the moment to play with them.
+
+## Gogs
+
+Although our repositories are in GitHub we fork them in an internal Git server to avoid a lot of unnecessary commits. 
+
+This internal server is Gogs. You can enter in ArgoCD and visualize the state of Gogs, if it is correctly synchronized we can enter with user and password ```gogs```.
+
+![app pipeline](images/quarkus-pipeline.png)
