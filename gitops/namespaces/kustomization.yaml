@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - tekton.yaml
   - gogs.yaml
-  - quarkus-dev.yaml

@@ -9,6 +9,10 @@ spec:
       elements:
       - env: dev
         namespace: quarkus-dev
+      - env: int
+        namespace: quarkus-int
+      - env: prod
+        namespace: quarkus-prod
   template:
     metadata: 
       name: '{{env}}-quarkus-app'
@@ -32,3 +36,5 @@ spec:
         automated:
           prune: true
           selfHeal: false
+        syncOptions:
+          - CreateNamespace=true
