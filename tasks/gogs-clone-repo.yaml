@@ -62,7 +62,7 @@ spec:
         print("Created git repo " + repo_name)
 
       # create the webhook
-      webhook = $(params.CREATE_WEBHOOK)
+      webhook = "$(params.CREATE_WEBHOOK)"
       if webhook == 'true':
         data_webhook = '{"type": "gogs", "config": { "url": "' + webhookURL + '", "content_type": "json"}, "events": ["push"], "active": true}'
         headers = {'Content-Type': 'application/json'}
