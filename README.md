@@ -40,15 +40,20 @@ Now, we apply the bootstrap application:
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 
+The bootstrap application initializes the cluster with the necessary dependencies and configuration. This repository is structure functionally: 
+
+* **apps**: this folder contains the configuration of the applications that are running on the cluster.
+* **dependencies**: our system needs some dependencies which are installed by ArgoCD.
+* **gitops**: contains all the ArgoCD objects and cluster configuration as security role bindings.
+* **operator**: operators definitions
+* **pipelines**: pipelines definitions which are managed by ArgoCD too.
+* **tasks**: our own tasks definitions.
+* **triggers**: triggers to configure and deploy automatically the pipelines.
+* **workspaces**: pvc creation. You also can use a PVC template. 
+
 ## Tekton
 
 As we're using ArgoCD, we only have to apply the ArgoCD bootstrap application and it's going to install the Tekton Operator. This operation was done in the previous step. 
-
-Tekton runs some commands on gogs namespace, so we need to grant some roles:
-
-```bash
-oc apply -f gitops/cluster-role-tekton-admin-gogs.yaml
-```
 
 # Cloud Native Lifecycle
 
