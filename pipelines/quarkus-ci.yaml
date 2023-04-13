@@ -173,8 +173,8 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
-          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
-          cd app-quarkus-config
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-dev
+          cd app-quarkus-config-dev
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" dev.values.yaml
           git add dev.values.yaml
           git commit -m 'bot update dev env'
@@ -198,8 +198,8 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
-          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
-          cd app-quarkus-config
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-int
+          cd app-quarkus-config-int
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" int.values.yaml
           git add int.values.yaml
           git commit -m 'bot update int env'
@@ -223,8 +223,8 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
-          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
-          cd app-quarkus-config
+          git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-prod
+          cd app-quarkus-config-prod
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" prod.values.yaml
           git add prod.values.yaml
           git commit -m 'bot update prod env'
