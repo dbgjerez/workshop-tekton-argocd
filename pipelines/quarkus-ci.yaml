@@ -134,9 +134,8 @@ spec:
       - name: TLSVERIFY
         value: "false"
       - name: BUILD_EXTRA_ARGS
-        value: 
-          - version=$(tasks.extract-app-version.results.app-version)
-          - name=$(params.service-name)
+        value: "--build-arg version=$(tasks.extract-app-version.results.app-version) \
+                --build-arg name=$(params.service-name)"
     workspaces:
       - name: source
         workspace: source
