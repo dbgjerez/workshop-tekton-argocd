@@ -23,6 +23,7 @@ spec:
       cd $(workspaces.source.path)/$(params.context)
       pwd
       ls
+      mvn help:evaluate -Dexpression=project.version -q -DforceStdout
       APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
       echo $APP_VERSION
       BUILD_DATE=$(date +'%Y%m%d%H%M')
