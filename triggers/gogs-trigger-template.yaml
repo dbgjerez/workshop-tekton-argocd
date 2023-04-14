@@ -10,6 +10,7 @@ spec:
   - name: repo-url
   - name: revision
   - name: src
+  - name: service-name
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
@@ -33,6 +34,8 @@ spec:
         value: "$(tt.params.container-file)"
       - name: skip-image-push
         value: "$(tt.params.skip-image-push)"
+      - name: service-name
+        value: "$(tt.params.service-name)"
       workspaces:
       - name: source
         persistentVolumeClaim:

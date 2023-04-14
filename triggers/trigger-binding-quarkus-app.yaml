@@ -8,6 +8,8 @@ spec:
     value: .
   - name: image-name
     value: image-registry.openshift-image-registry.svc:5000/tekton/workshop-tekton-argocd-app-quarkus
+  - name: service-name
+    value: quarkus-app
   - name: container-file
     value: src/main/docker/Dockerfile.jvm
   - name: skip-image-push

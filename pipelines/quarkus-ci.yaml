@@ -20,6 +20,8 @@ spec:
       description: container runtime file
     - name: skip-image-push
       description: Skip image push
+    - name: service-name
+      description: Service name
   tasks:
   - name: clone
     taskRef:
@@ -131,6 +133,10 @@ spec:
         value: $(params.src)
       - name: TLSVERIFY
         value: "false"
+      - name: BUILD_EXTRA_ARGS
+        value: 
+          - version=$(tasks.extract-app-version.results.app-version)
+          - name=$(params.service-name)
     workspaces:
       - name: source
         workspace: source
