@@ -15,7 +15,7 @@ spec:
     - name: source
   steps:
    - name: get-version
-     image: gcr.io/cloud-builders/mvn
+     image: registry.redhat.io/ubi8/ubi-minimal
      script: |
       pwd
       echo $(workspaces.source.path)
