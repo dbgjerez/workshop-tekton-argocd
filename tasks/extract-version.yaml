@@ -22,7 +22,11 @@ spec:
       echo $(params.context)
       cd $(workspaces.source.path)/$(params.context)
       pwd
+      ls
       APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+      echo $APP_VERSION
       BUILD_DATE=$(date +'%Y%m%d%H%M')
+      echo $BUILD_DATE
       VERSION=$APP_VERSION-$BUILD_DATE
+      echo $VERSION
       echo -n $VERSION | tee $(results.app-version.path)
