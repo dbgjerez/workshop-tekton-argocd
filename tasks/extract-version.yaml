@@ -17,7 +17,11 @@ spec:
    - name: get-version
      image: gcr.io/cloud-builders/mvn
      script: |
+      pwd
+      echo $(workspaces.source.path)
+      echo $(params.context)
       cd $(workspaces.source.path)/$(params.context)
+      pwd
       APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
       BUILD_DATE=$(date +'%Y%m%d%H%M')
       VERSION=$APP_VERSION-$BUILD_DATE
