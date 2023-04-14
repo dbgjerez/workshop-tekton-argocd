@@ -135,7 +135,7 @@ spec:
         value: "false"
       - name: BUILD_EXTRA_ARGS
         value: "--build-arg version=$(tasks.extract-app-version.results.app-version) \
-                --build-arg name=$(params.service-name)"
+                --build-arg serviceName=$(params.service-name)"
     workspaces:
       - name: source
         workspace: source
