@@ -183,6 +183,7 @@ spec:
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" int.values.yaml
           git add int.values.yaml
           git commit -m bot-update
+          sleep 5
           git push
     workspaces:
       - name: source
@@ -208,6 +209,7 @@ spec:
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" prod.values.yaml
           git add prod.values.yaml
           git commit -m bot-update
+          sleep 10
           git push
     workspaces:
       - name: source
