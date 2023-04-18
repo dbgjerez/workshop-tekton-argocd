@@ -178,12 +178,12 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
+          sleep 5
           git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-int
           cd app-quarkus-config-int
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" int.values.yaml
           git add int.values.yaml
           git commit -m bot-update
-          sleep 5
           git push
     workspaces:
       - name: source
@@ -204,12 +204,12 @@ spec:
         value: dborrego@redhat.com
       - name: GIT_SCRIPT
         value: |
+          sleep 10
           git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config-prod
           cd app-quarkus-config-prod
           sed -i "s/version:.*/version: $(tasks.extract-app-version.results.app-version)/g" prod.values.yaml
           git add prod.values.yaml
           git commit -m bot-update
-          sleep 10
           git push
     workspaces:
       - name: source
