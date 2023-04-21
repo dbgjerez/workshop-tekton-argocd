@@ -45,8 +45,12 @@ spec:
           value: dborrego@redhat.com
         - name: GIT_SCRIPT
           value: |
-            git clone http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git app-quarkus-config
-            cd app-quarkus-config
+            FOLDER=app-quarkus-config
+            URL=http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus-config.git
+            if [ ! -d "$FOLDER" ] ; then
+              git clone "$URL" "$FOLDER"
+            fi
+            cd $FOLDER
             sed -i "s/quay.io\/dborrego\/workshop-tekton-argocd-app-quarkus/image-registry.openshift-image-registry.svc:5000\/tekton\/workshop-tekton-argocd-app-quarkus/g" values.yaml
             git add values.yaml
             git commit -m image-registry
