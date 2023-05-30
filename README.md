@@ -3,8 +3,9 @@ Tekton is a Cloud Native solution to build Continous Integration pipelines.
 The power of Tekton can be combined with ArgoCD as a Continous Deployment tool, getting a CI/CD complete cycle. 
 
 # Tools
-* OpenShift Pipelines 1.9 (Tekton Pipelines: v0.41.1)
-* OpenShift GitOps 
+* OpenShift Pipelines 1.10.3 
+* OpenShift GitOps 1.8.3
+* Openshift 4.13
 
 # Installation
 
