@@ -1,0 +1,18 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: trigger-binding-quarkus-app
+spec:
+  params:
+  - name: src
+    value: .
+  - name: image-name
+    value: image-registry.openshift-image-registry.svc:5000/tekton/workshop-tekton-argocd-app-quarkus
+  - name: service-name
+    value: quarkus-app
+  - name: container-file
+    value: src/main/docker/Dockerfile.jvm
+  - name: skip-image-push
+    value: "false"
+  - name: repo-url
+    value: http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus.git

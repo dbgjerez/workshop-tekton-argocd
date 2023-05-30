@@ -1,12 +1,12 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: event-listener-github
+  name: gogs-event-listener
 spec:
   serviceAccountName: pipeline
   triggers:
   - bindings:
-    - ref: github-push
-    - ref: kafka-producer
+    - ref: gogs-push
+    - ref: trigger-binding-quarkus-app
     template:
-      ref: trigger-template-github
+      ref: gogs-trigger-template

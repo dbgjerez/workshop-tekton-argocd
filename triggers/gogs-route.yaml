@@ -1,15 +1,15 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: github-webhook
+  name: gogs-webhook
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
-    eventlistener: event-listener-github
+    eventlistener: gogs-event-listener
 spec:
   port:
     targetPort: http-listener
   to:
     kind: Service
-    name: el-event-listener-github
+    name: el-gogs-event-listener
     weight: 100

@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: trigger-template-github
+  name: gogs-trigger-template
 spec:
   params:
   - name: image-name
@@ -10,6 +10,7 @@ spec:
   - name: repo-url
   - name: revision
   - name: src
+  - name: service-name
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
@@ -17,6 +18,7 @@ spec:
       generateName: pipeline-
       namespace: tekton
     spec:
+      serviceAccountName: pipeline
       pipelineRef:
         name: quarkus-ci
       params:
@@ -32,9 +34,14 @@ spec:
         value: "$(tt.params.container-file)"
       - name: skip-image-push
         value: "$(tt.params.skip-image-push)"
+      - name: service-name
+        value: "$(tt.params.service-name)"
       workspaces:
       - name: source
         persistentVolumeClaim:
           claimName: source-pvc
-      - emptyDir: {}
-        name: scratch
+      - name: scratch
+        emptyDir: {}
+      - name: git-credentials
+        secret:
+          secretName: git-credentials
