@@ -7,6 +7,7 @@ spec:
     - name: source
     - name: scratch
     - name: git-credentials
+    - name: dockerconfig-ws
   params:
     - name: repo-url
       description: Git repository url
@@ -139,6 +140,8 @@ spec:
     workspaces:
       - name: source
         workspace: source
+      - name: dockerconfig	
+        workspace: dockerconfig-ws
 
   - name: update-deploy-dev
     taskRef:

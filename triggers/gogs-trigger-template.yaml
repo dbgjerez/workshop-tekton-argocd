@@ -45,3 +45,6 @@ spec:
       - name: git-credentials
         secret:
           secretName: git-credentials
+      - name: dockerconfig-ws	
+        secret:	
+          secretName: quay-robot-secret

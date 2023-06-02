@@ -1,0 +1,13 @@
+---
+- name: 'Install the ACS Demo'
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: 'Install and configure ODF'
+      include_role:
+        name: "ocp4-install-odf"
+
+    - name: 'Install and configure Quay'
+      include_role:
+        name: "ocp4-install-quay"
