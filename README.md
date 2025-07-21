@@ -9,49 +9,63 @@ The power of Tekton can be combined with ArgoCD as a Continous Deployment tool, 
 
 # Installation
 
-## ArgoCD 
+## Prerequisites
 
-Operator installation:
+To deploy this workshop, you need the following operators installed on your OpenShift cluster. You can easily install them from the **OperatorHub**:
 
-```bash
-oc apply -f operator/openshift-gitops.yaml
-```
+1.  **OpenShift GitOps** (based on ArgoCD).
+2.  **OpenShift Pipelines** (based on Tekton).
 
-Retrieve ArgoCD route: 
+## Initial Setup with GitOps
 
-```bash
-oc get route -A | grep openshift-gitops-server | awk '{print $3}'
-```
+Once the operators are installed and running, we will use a GitOps approach to configure the rest of the environment.
 
-Get the ArgoCD admin password: 
+**1. Get ArgoCD Credentials**
 
-```bash
-oc -n openshift-gitops get secret openshift-gitops-cluster -o json | jq -r '.data["admin.password"]' | base64 -d
-```
+First, you need the route and the admin password to access the ArgoCD UI.
 
-ArgoCD needs some privileges to create specific resources. In this demo, we'll apply cluster-role to ArgoCD to avoid the fine-grain RBAC.
+  * Get the ArgoCD route:
+
+    ```bash
+    oc get route -n openshift-gitops openshift-gitops-server -o jsonpath='{.spec.host}'
+    ```
+
+  * Get the admin password:
+
+    ```bash
+    oc -n openshift-gitops get secret openshift-gitops-cluster -o jsonpath='{.data.admin\.password}' | base64 -d
+    ```
+
+**2. Grant Permissions to ArgoCD**
+
+ArgoCD needs elevated privileges to manage cluster resources (like `Roles`, `Pipelines`, etc.). To keep the demo simple, we'll apply a `ClusterRole`.
 
 ```bash
 oc apply -f gitops/cluster-role.yaml
 ```
 
-Now, we apply the bootstrap application:
+**3. Deploy the Bootstrap Application**
+
+Finally, we apply the "root" or bootstrap application. This application tells ArgoCD to read the configuration from this repository and automatically deploy all other applications, dependencies, and pipelines.
 
 ```bash
 oc apply -f gitops/argocd-project.yaml
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 
-The bootstrap application initializes the cluster with the necessary dependencies and configuration. This repository is structure functionally:
+After applying these manifests, you can navigate to the ArgoCD UI and watch as all the workshop components are synchronized.
 
-* **apps**: this folder contains the configuration of the applications that are running on the cluster.
-* **dependencies**: our system needs some dependencies which are installed by ArgoCD.
-* **gitops**: contains all the ArgoCD objects and cluster configuration as security role bindings.
-* **operator**: operators definitions
-* **pipelines**: pipelines definitions which are managed by ArgoCD too.
-* **tasks**: our own tasks definitions.
-* **triggers**: triggers to configure and deploy automatically the pipelines.
-* **workspaces**: pvc creation. You also can use a PVC template. 
+## Repository Structure
+
+This repository is structured by functionality to maintain a clear layout:
+
+  * **apps**: Contains the configuration of the applications running on the cluster.
+  * **dependencies**: System dependencies that will be installed by ArgoCD.
+  * **gitops**: Defines ArgoCD objects and cluster configuration (e.g., roles).
+  * **pipelines**: Definitions of the Tekton `Pipelines`.
+  * **tasks**: Custom Tekton `Tasks` definitions.
+  * **triggers**: `Triggers` to automatically execute the pipelines.
+  * **workspaces**: PVC creation for pipeline `Workspaces`.
 
 ## Tekton
 
