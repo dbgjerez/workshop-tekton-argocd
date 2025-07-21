@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bootstrap
+  name: workshop-tekton-argocd-bootstrap
   namespace: openshift-gitops
 spec:
   destination:
@@ -11,7 +11,7 @@ spec:
     path: gitops
     repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
     targetRevision: develop
-  project: default
+  project: workshop-tekton-argocd
   syncPolicy:
     automated:
       prune: true

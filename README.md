@@ -38,6 +38,7 @@ oc apply -f gitops/cluster-role.yaml
 Now, we apply the bootstrap application:
 
 ```bash
+oc apply -f gitops/argocd-project.yaml
 oc apply -f gitops/argocd-app-bootstrap.yaml
 ```
 

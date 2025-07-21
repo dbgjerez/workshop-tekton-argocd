@@ -11,7 +11,7 @@ spec:
     path: pipelines
     repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
     targetRevision: develop
-  project: default
+  project: workshop-tekton-argocd
   syncPolicy:
     automated:
       prune: true
