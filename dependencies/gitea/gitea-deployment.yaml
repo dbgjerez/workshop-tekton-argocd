@@ -2,7 +2,7 @@
 apiVersion: pfe.rhpds.com/v1
 kind: Gitea
 metadata:
-  name: gitea-with-repositories
+  name: gitea-ws-tekton
 spec:
   giteaSsl: true
 
