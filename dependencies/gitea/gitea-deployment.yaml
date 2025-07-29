@@ -4,12 +4,14 @@ kind: Gitea
 metadata:
   name: gitea-with-repositories
 spec:
+  giteaSsl: true
+
   giteaAdminUser: admin
   giteaAdminPassword: "admin"
   giteaAdminEmail: dborrego@redhat.com
 
   giteaCreateUsers: true
-  giteaGenerateUserFormat: "student"
+  giteaGenerateUserFormat: "student-%d"
   giteaUserNumber: 2
   giteaUserPassword: openshift
 
