@@ -1,0 +1,23 @@
+---
+apiVersion: pfe.rhpds.com/v1
+kind: Gitea
+metadata:
+  name: gitea-with-repositories
+spec:
+  giteaAdminUser: admin
+  giteaAdminPassword: "admin"
+  giteaAdminEmail: dborrego@redhat.com
+
+  giteaCreateUsers: true
+  giteaGenerateUserFormat: "student"
+  giteaUserNumber: 2
+  giteaUserPassword: openshift
+
+  giteaMigrateRepositories: true
+  giteaRepositoriesList:
+  - repo: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus.git
+    name: app-quarkus
+    private: false
+  - repo: https://github.com/dbgjerez/workshop-tekton-argocd-app-quarkus-config.git
+    name: app-quarkus-config
+    private: false
