@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: gitea
+    server: "https://kubernetes.default.svc"
+  source:
+    path: dependencies/gitea
+    repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
+    targetRevision: 8-gitea
+  project: workshop-tekton-argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
