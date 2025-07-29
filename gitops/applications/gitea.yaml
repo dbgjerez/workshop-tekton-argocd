@@ -10,7 +10,7 @@ spec:
   source:
     path: dependencies/gitea
     repoURL: "https://github.com/dbgjerez/workshop-tekton-argocd"
-    targetRevision: 8-gitea
+    targetRevision: develop
   project: workshop-tekton-argocd
   syncPolicy:
     automated:
