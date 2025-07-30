@@ -27,6 +27,7 @@ spec:
     taskRef:
       name: git-clone
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     params:
       - name: url
         value: $(params.repo-url)
