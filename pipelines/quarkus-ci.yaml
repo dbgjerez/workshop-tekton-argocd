@@ -48,6 +48,7 @@ spec:
     taskRef:
       name: maven
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - clone
     params:
@@ -66,6 +67,7 @@ spec:
   - name: extract-app-version
     taskRef:
       name: extract-version-pom
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - clone
     params:
@@ -79,6 +81,7 @@ spec:
     taskRef:
       name: maven
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - extract-app-version
     params:
@@ -100,6 +103,7 @@ spec:
     taskRef:
       name: maven
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - update-mvn-version
       - test
@@ -120,6 +124,7 @@ spec:
     taskRef:
       name: buildah
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - build
     params:
@@ -144,6 +149,7 @@ spec:
     taskRef:
       name: git-cli
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - build-image
     params:
@@ -169,6 +175,7 @@ spec:
     taskRef:
       name: git-cli
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - build-image
     params:
@@ -195,6 +202,7 @@ spec:
     taskRef:
       name: git-cli
       kind: ClusterTask
+      apiVersion: tekton.dev/v1beta1
     runAfter:
       - build-image
     params:
