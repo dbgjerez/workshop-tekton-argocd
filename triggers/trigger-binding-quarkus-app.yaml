@@ -14,5 +14,3 @@ spec:
     value: src/main/docker/Dockerfile.jvm
   - name: skip-image-push
     value: "false"
-  - name: repo-url
-    value: http://gogs.gogs.svc.cluster.local:3000/gogs/app-quarkus.git
